@@ -10,6 +10,8 @@ NEW: For those of you who wish to separate the client and server into separate p
 * Operating System: MacOS or Linux
 * [Node.js](https://nodejs.org/) (I recommend installing with [NVM](https://github.com/nvm-sh/nvm))
 * [Homebrew](https://brew.sh) (to install MongoDB)
+* For linux instead use https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/ to install and run mongod community
+
 
 ## Quick Start
 
@@ -27,6 +29,12 @@ Start the database
 ```bash
 brew services start mongodb-community
 ```
+for linux
+
+```sudo systemctl start mongod
+sudo systemctl status mongod
+```
+
 
 #### for Development
 
