@@ -27,8 +27,8 @@ router.post('/', async(req, res) => {
     const gptResponse = await openai.complete({
       engine: 'curie',
       prompt,
-      maxTokens: 20,
-      temperature: 0.5,
+      maxTokens: 50,
+      temperature: 0.8,
       topP: 1,
       presencePenalty: 0,
       frequencyPenalty: 0,
