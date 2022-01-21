@@ -28,7 +28,7 @@ export default function MindCloneChatSection() {
 
   React.useEffect(async () => {
     const response = await callApi();
-    if (response.choices[0].text) {
+    if (response) {
       console.log(response.choices[0].text);
     }
   }, [messages]);
