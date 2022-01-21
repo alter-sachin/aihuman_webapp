@@ -25,7 +25,6 @@ const parseRequestToPrompt = (request) => {
 router.post('/', async(req, res) => {
   try {
     const prompt = parseRequestToPrompt(req.body);
-    console.log(prompt);
     const gptResponse = await openai.complete({
       engine: 'curie',
       prompt,
@@ -39,7 +38,6 @@ router.post('/', async(req, res) => {
       stream: false,
       stop: ['\n', 'testing'],
     });
-    console.log(gptResponse.data);
     res.send(gptResponse.data);
   }
   catch (e) {
