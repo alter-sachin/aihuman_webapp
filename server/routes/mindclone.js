@@ -6,22 +6,45 @@ const OpenAI = require('openai-api');
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
-router.post('/', async(req, res) => {
-  const gptResponse = await openai.complete({
-    engine: 'curie',
-    prompt: req.body.prompt,
-    maxTokens: 15,
-    temperature: 0.5,
-    topP: 1,
-    presencePenalty: 0,
-    frequencyPenalty: 0,
-    bestOf: 1,
-    n: 1,
-    stream: false,
-    stop: ['\n', 'testing'],
-  });
+const parseRequestToPrompt = (request) => {
+  const { name, messages } = request;
+  const contextForBot = `You are ${name}. I will ask you questions and you will respond as ${name}.\n`;
+  let questionAnswers = '';
+  for (let i = 0; i < messages.length; ++i) {
+    if (messages[i].direction === 'incoming') {
+      console.log('here');
+      questionAnswers = questionAnswers.concat('A. ', messages[i].message, '\n');
+    }
+    else {
+      questionAnswers = questionAnswers.concat('Q. ', messages[i].message, '\n');
+    }
+  }
+  return contextForBot.concat(questionAnswers, 'A.');
+};
 
-  res.send(gptResponse.data);
+router.post('/', async(req, res) => {
+  try {
+    const prompt = parseRequestToPrompt(req.body);
+    console.log(prompt);
+    const gptResponse = await openai.complete({
+      engine: 'curie',
+      prompt,
+      maxTokens: 20,
+      temperature: 0.5,
+      topP: 1,
+      presencePenalty: 0,
+      frequencyPenalty: 0,
+      bestOf: 1,
+      n: 1,
+      stream: false,
+      stop: ['\n', 'testing'],
+    });
+    console.log(gptResponse.data);
+    res.send(gptResponse.data);
+  }
+  catch (e) {
+    console.log(e);
+  }
 });
 
 module.exports = router;
