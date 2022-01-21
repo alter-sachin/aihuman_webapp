@@ -12,7 +12,6 @@ const parseRequestToPrompt = (request) => {
   let questionAnswers = '';
   for (let i = 0; i < messages.length; ++i) {
     if (messages[i].direction === 'incoming') {
-      console.log('here');
       questionAnswers = questionAnswers.concat('A. ', messages[i].message, '\n');
     }
     else {
