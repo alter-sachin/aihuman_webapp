@@ -18,36 +18,9 @@ import {
 export default function MindCloneChatSection() {
   const inputRef = React.useRef();
   const [msgInputValue, setMsgInputValue] = React.useState('');
+  const [userSentMessages, setUserSentMessages] = React.useState([]);
   const [messages, setMessages] = React.useState([]);
   const [activeChatIndex, setActiveChatIndex] = React.useState(0);
-
-  const callApi = async () => {
-    if (messages.length !== 0) return getResponse(messages);
-    return null;
-  };
-
-  React.useEffect(async () => {
-    const response = await callApi();
-    if (response) {
-      console.log(response.choices[0].text);
-    }
-  }, [messages]);
-
-  const handleSend = message => {
-    setMessages([...messages, {
-      message,
-      direction: 'outgoing',
-    }]);
-    setMsgInputValue('');
-    inputRef.current.focus();
-  };
-
-  const handleChatClick = idx => {
-    if (idx !== activeChatIndex) {
-      setActiveChatIndex(idx);
-      setMessages([]);
-    }
-  };
 
   const chatbotOptions = [
     {
@@ -59,6 +32,41 @@ export default function MindCloneChatSection() {
       src: 'https://podcast-notes-uploads.imgix.net/2020/05/naval-ravikant.jpg?auto=compress%2Cformat&fit=scale&h=1024&ixlib=php-3.3.0&w=1024&wpsize=large',
     },
   ];
+
+  const callApi = async () => {
+    const { name } = chatbotOptions[activeChatIndex];
+    if (messages.length !== 0) {
+      return getResponse({ name, messages });
+    }
+    return null;
+  };
+
+  React.useEffect(async () => {
+    const response = await callApi();
+    if (response) {
+      setMessages([...messages, {
+        message: response.choices[0].text,
+        direction: 'incoming',
+      }]);
+    }
+  }, [userSentMessages]);
+
+  const handleSend = message => {
+    setMessages([...messages, {
+      message,
+      direction: 'outgoing',
+    }]);
+    setUserSentMessages([...userSentMessages, message]);
+    setMsgInputValue('');
+    inputRef.current.focus();
+  };
+
+  const handleChatClick = idx => {
+    if (idx !== activeChatIndex) {
+      setActiveChatIndex(idx);
+      setMessages([]);
+    }
+  };
 
   return (
     <MainContainer>
