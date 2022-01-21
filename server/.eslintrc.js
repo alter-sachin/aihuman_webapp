@@ -3,7 +3,7 @@ module.exports = {
   root: true,
   extends: 'airbnb-base',
   parserOptions: {
-    ecmaVersion: 7,
+    ecmaVersion: 8,
     sourceType: "module",
     allowImportExportEverywhere: false,
   },
