@@ -36,10 +36,6 @@ h1 {
   color: #272730;
 }
 
-.picker {
-  position: absolute !important;
-  top: 74px;
-  left: 70px;
-  width: 90px !important;
-  height: 90px !important;
+#chatbox {
+  z-index: 99;
 }
