@@ -3,6 +3,13 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { ContactShadows, Environment, useGLTF, OrbitControls } from "@react-three/drei"
 import { HexColorPicker } from "react-colorful"
 import { proxy, useSnapshot } from "valtio"
+import {
+  Button,
+  ChatContainer
+} from '@chatscope/chat-ui-kit-react';
+
+import ReactPlayer from 'react-player';
+
 
 // Using a Valtio state model to bridge reactivity between
 // the canvas and the dom, both can write to it and/or react to it.
@@ -18,7 +25,44 @@ const state = proxy({
     band: "#ffffff",
     patch: "#ffffff",
   },
-})
+});
+
+
+  const redcolor = {
+  laces: "#ad2f26",
+    mesh: "#ad2f26",
+    caps: "#ffffff",
+    inner: "#ffffff",
+    sole: "#000",
+    stripes: "#ad3130",
+    band: "#ffffff",
+    patch: "#ffffff",
+};
+
+const blackColor ={
+  laces: "#000",
+    mesh: "#534f50",
+    caps: "#000",
+    inner: "#000",
+    sole: "#000",
+    stripes: "#534f50",
+    band: "#000",
+    patch: "#000",
+}
+
+const greyColor = {
+    laces: "#7f8185",
+    mesh: "#7f8185",
+    caps: "#ffffff",
+    inner: "#ffffff",
+    sole: "#ffffff",
+    stripes: "#000",
+    band: "#ffffff",
+    patch: "#ffffff",
+}
+
+
+
 
 function Shoe() {
   const ref = useRef()
@@ -80,8 +124,16 @@ function Picker() {
 }
 
 export default function App() {
+  const snap = useSnapshot(state)
+ 
   return (
     <>
+    <div id="chatbox" style={{position:"absolute",bottom:"25em",height:"100px",width:"100px",right:"2em"}}>
+   
+          <Button id="chatbutton" border onClick={()=>state.items=redcolor}>Flash Red</Button>
+          <Button id="chatbutton" border onClick={()=>state.items=blackColor}>Black Beauty</Button>
+          <Button id="chatbutton" border onClick={()=>state.items=greyColor}>Smooth Grey</Button>
+    </div>
       <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 4], fov: 50 }}>
         <ambientLight intensity={0.7} />
         <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
@@ -92,7 +144,7 @@ export default function App() {
         </Suspense>
         <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
       </Canvas>
-      <Picker />
+           
     </>
   )
 }
