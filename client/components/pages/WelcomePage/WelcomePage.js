@@ -1,31 +1,27 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
-import R from 'ramda';
-
-import Section from 'react-bulma-companion/lib/Section';
-import Container from 'react-bulma-companion/lib/Container';
-import Title from 'react-bulma-companion/lib/Title';
+import React, { Suspense, useRef } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Environment } from '@react-three/drei';
+import Model from './Model';
+import Overlay from './Overlay';
 
 export default function WelcomePage() {
-  const dispatch = useDispatch();
-  const { user } = useSelector(R.pick(['user']));
-
-  useEffect(() => {
-    if (!R.isEmpty(user)) {
-      dispatch(push('/home'));
-    }
-  }, []);
-
+  const overlay = useRef();
+  const caption = useRef();
+  const scroll = useRef(0);
   return (
-    <div className="welcome-page page">
-      <Section>
-        <Container>
-          <Title size="1">
-            Welcome Page!
-          </Title>
-        </Container>
-      </Section>
-    </div>
+    <React.Fragment>
+      <Canvas
+        shadows
+        onCreated={(state) => state.events.connect(overlay.current)}
+        raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
+      >
+        <ambientLight intensity={1} />
+        <Suspense fallback={null}>
+          <Model scroll={scroll} />
+          <Environment preset="city" />
+        </Suspense>
+      </Canvas>
+      <Overlay ref={overlay} caption={caption} scroll={scroll} />
+    </React.Fragment>
   );
 }
