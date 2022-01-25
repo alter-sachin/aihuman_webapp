@@ -8,7 +8,7 @@ const color = new THREE.Color();
 
 export default function Model({ scroll, ...props }) {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF('/api/model');
+  const { nodes, materials, animations } = useGLTF('/api/model/home');
   const { actions } = useAnimations(animations, group);
   const [hovered, set] = useState();
   const extras = { receiveShadow: true, castShadow: true, 'material-envMapIntensity': 0.2 };

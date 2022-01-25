@@ -15,6 +15,7 @@ import TodoPage from '_pages/TodoPage';
 import SettingsPage from '_pages/SettingsPage';
 import MindClonePage from '_pages/MindClonePage';
 import LostPage from '_pages/LostPage';
+import BotPage from '_pages/BotPage';
 
 import Navigation from '_organisms/Navigation';
 import Footer from '_organisms/Footer';
@@ -50,6 +51,7 @@ export default function Main({ location }) {
           <Route path="/todo" component={TodoPage} />
           <Route path="/settings" component={SettingsPage} />
           <Route path="/mindclone" component={MindClonePage} />
+          <Route path="/ecommerce-bot" component={BotPage} />
           <Route path="*" component={LostPage} />
         </Switch>
       </div>

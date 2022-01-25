@@ -7,6 +7,8 @@ const users = require('./users');
 const todos = require('./todos');
 const mindclone = require('./mindclone');
 const model = require('./servemodel');
+const bot = require('./bot');
+
 
 const router = express.Router();
 
@@ -16,6 +18,8 @@ router.use('/api/users', users);
 router.use('/api/todos', todos);
 router.use('/api/mindclone', mindclone);
 router.use('/api/model', model);
+
+
 
 router.get('/api/tags', (req, res) => {
   res.send([
