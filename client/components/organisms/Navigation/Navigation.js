@@ -1,5 +1,4 @@
 import React, { useState, useEffect }  from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import R from 'ramda';
@@ -12,7 +11,10 @@ import Button from 'react-bulma-companion/lib/Button';
 
 import UserDropdown from '_molecules/UserDropdown';
 
-export default function Navigation({ pathname }) {
+import NavbarStartItems from './NavbarStartItems';
+import NavbarEndItems from './NavbarEndItems';
+
+export default function Navigation() {
   const { user } = useSelector(R.pick(['user']));
 
   const [auth, setAuth] = useState(!R.isEmpty(user));
@@ -25,18 +27,6 @@ export default function Navigation({ pathname }) {
   const toggleDropdown = () => setOpen(!open);
 
   const closeDropdown = () => setOpen(false);
-
-  const isHome = (pathname.length === 5)
-    ? pathname === '/home'
-    : R.slice(0, 6, pathname) === '/home/';
-
-  const isTodo = (pathname.length === 5)
-    ? pathname === '/todo'
-    : R.slice(0, 6, pathname) === '/todo/';
-
-  const isSettings = (pathname.length === 9)
-    ? pathname === '/settings'
-    : R.slice(0, 10, pathname) === '/settings/';
 
   return (
     <Navbar fixed="top" shadow>
@@ -94,40 +84,9 @@ export default function Navigation({ pathname }) {
 
         {auth ? (
           <Navbar.Menu>
-            <Navbar.Start>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/home"
-                active={isHome}
-                tab
-                component={Link}
-              >
-                <Title size="6">Home</Title>
-              </Navbar.Item>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/todo"
-                active={isTodo}
-                tab
-                component={Link}
-              >
-                <Title size="6">
-                  Todo
-                </Title>
-              </Navbar.Item>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/settings"
-                active={isSettings}
-                tab
-                component={Link}
-              >
-                <Title size="6">
-                  Settings
-                </Title>
-              </Navbar.Item>
-            </Navbar.Start>
+            <NavbarStartItems />
             <Navbar.End>
+              <NavbarEndItems />
               <Navbar.Item onClick={toggleDropdown} onKeyPress={toggleDropdown} hoverable component="a">
                 <Image size="32x32">
                   <Image.Content
@@ -141,7 +100,9 @@ export default function Navigation({ pathname }) {
           </Navbar.Menu>
         ) : (
           <Navbar.Menu>
+            <NavbarStartItems />
             <Navbar.End>
+              <NavbarEndItems />
               <Navbar.Item to="/login" component={Link}>
                 <Title size="6">
                   Login
@@ -158,7 +119,3 @@ export default function Navigation({ pathname }) {
     </Navbar>
   );
 }
-
-Navigation.propTypes = {
-  pathname: PropTypes.string.isRequired,
-};
