@@ -11,6 +11,9 @@ import Button from 'react-bulma-companion/lib/Button';
 
 import UserDropdown from '_molecules/UserDropdown';
 
+import NavbarStartItems from './NavbarStartItems';
+import NavbarEndItems from './NavbarEndItems';
+
 export default function Navigation() {
   const { user } = useSelector(R.pick(['user']));
 
@@ -81,67 +84,9 @@ export default function Navigation() {
 
         {auth ? (
           <Navbar.Menu>
-            <Navbar.Start>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/avatars"
-                tab
-                component={Link}
-              >
-                <Title size="6">AI Avatars</Title>
-              </Navbar.Item>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/avatarverse"
-                tab
-                component={Link}
-              >
-                <Title size="6">
-                  Avatarverse
-                </Title>
-              </Navbar.Item>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/roadmap"
-                tab
-                component={Link}
-              >
-                <Title size="6">
-                  Roadmap
-                </Title>
-              </Navbar.Item>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/showcase"
-                tab
-                component={Link}
-              >
-                <Title size="6">
-                  Showcase
-                </Title>
-              </Navbar.Item>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/team"
-                tab
-                component={Link}
-              >
-                <Title size="6">
-                  Team
-                </Title>
-              </Navbar.Item>
-              <Navbar.Item
-                className="is-hidden-mobile"
-                to="/settings"
-                tab
-                component={Link}
-              >
-                <Title size="6">
-                  Settings
-                </Title>
-              </Navbar.Item>
-            </Navbar.Start>
+            <NavbarStartItems />
             <Navbar.End>
+              <NavbarEndItems />
               <Navbar.Item onClick={toggleDropdown} onKeyPress={toggleDropdown} hoverable component="a">
                 <Image size="32x32">
                   <Image.Content
@@ -155,7 +100,9 @@ export default function Navigation() {
           </Navbar.Menu>
         ) : (
           <Navbar.Menu>
+            <NavbarStartItems />
             <Navbar.End>
+              <NavbarEndItems />
               <Navbar.Item to="/login" component={Link}>
                 <Title size="6">
                   Login
