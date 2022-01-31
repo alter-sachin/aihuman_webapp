@@ -59,15 +59,18 @@ body {
 .dot {
   pointer-events: none;
   position: sticky;
-  top: 0px;
-  display: inline-block;
-  max-width: 600px;
-  padding: 0;
+  top: 50%;
+  display: flex;
+  width: 100%;
+  text-align: center;
   padding: 80px;
   color: #a0a0a0;
   line-height: 1.6em;
   font-size: 15px;
   letter-spacing: 1.5px;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
 }
 
 .dot > h1 {
@@ -79,6 +82,95 @@ body {
   line-height: 1em;
   margin: 0;
   margin-bottom: 0.25em;
+}
+
+.tagline {
+  position: relative;
+  bottom: -4em;
+  font-size: 2em;
+  line-height: 1.5em;
+}
+
+.text {
+  bottom: 0;
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buy-token-btn {
+  width: 10em;
+  height: 3em;
+  background-color: #1a2229;
+  box-shadow: 0 0 5px 0 #73cdbe;
+  color: white;
+  border: 1px solid rgba(238, 237, 242, 0.34);
+  border-radius: 10px;
+  font-size: 0.75em;
+  margin-top: 2px;
+  z-index: 40;
+}
+
+.buy-token-btn:hover {
+  background-color: #85dfd5;
+  color: #29271a;
+  cursor: pointer;
+}
+
+#iavatarverse-info {
+  width: 65%;
+  text-align: left;
+  top: 25%;
+}
+
+#iavatarverse-info h1 {
+  font-size: 2em;
+}
+
+#roadmap-info {
+  top: 15%;
+}
+
+.roadmap-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.roadmap-list {
+  border-left: 1px solid grey;
+  padding-left: 1em;
+  margin-bottom: 1em;
+}
+
+.roadmap-list-dot {
+  position: relative;
+  left: -20px;
+  top: 17px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: #fff;
+}
+
+.roadmap-bottom-line {
+  height: 1px;
+  position: relative;
+  width: 310%;
+  background-color: #bec5cc;
+  left: -30px;
+}
+
+.roadmap-bottom-orb {
+  position: relative;
+  width: 2em;
+  height: 2em;
+  border-radius: 100%;
+  background-color: #fff;
+  left: -14px;
+  top: -13px;
 }
 
 @media only screen and (max-width: 1000px) {
