@@ -8,48 +8,50 @@ const Overlay = forwardRef(({ caption, scroll }, ref) => (
         e.target.scrollTop / (e.target.scrollHeight - window.innerHeight);
       caption.current.innerText = scroll.current.toFixed(2);
     }}
-    className="scroll"
-  >
-    <div style={{ height: '400vh' }} id="homepage-text1">
-      <div className="dot">
-        <h1>AI Human</h1>
-        <div className="tagline">
-          <div>AI digital workforce</div>
-          <div>Earn online</div>
-        </div>
+    className="scroll">
+
+    
+    <div className="dot">
+      <h1>AI Human</h1>
+      <div className="tagline">
+        <div>AI digital workforce</div>
+        <div>Earn online</div>
       </div>
     </div>
-    <div style={{ height: '200vh' }} id="homepage-text2">
-      <div className="dot">
-        <h1>iSELF Token</h1>
+ 
+    
+    <div className="dot">
+      <h1>iSELF Token</h1>
         <div className="tagline text">
           <p>A currency to digital avatar generation and usability.</p>
           <button type="button" className="buy-token-btn">
             Buy $iSELF Token
           </button>
         </div>
-      </div>
     </div>
-    <div style={{ height: '200vh' }} id="homepage-text3">
-      <div className="dot" id="iavatarverse-info">
-        <h3>iAvatarverse</h3>
-        <h1>
-          WE ARE ON A MISSION TO GIVE ACCESS TO DIGITAL ECONOMY TO ALL
-          EARTHLINGS, AND DEFINE THE FUTURE OF WORK
-        </h1>
-        <p>
-          Artificial intelligent avatars are interoperable across metaverses,
-          means it allows you to explore varied metaverses with your avatar
-          creations
-        </p>
-        <p>
-          iAvatars can be trained on varied skills, such as dancing, yoga,
-          modelling and customer services, which allows you to employ them in
-          varied metaverse and learn from other avatars
-        </p>
-      </div>
+
+
+    <div className="dot" id="iavatarverse-info">
+      <h3>iAvatarverse</h3>
+      <div id="inner">
+         <h1>
+        WE ARE ON A MISSION TO GIVE ACCESS TO DIGITAL ECONOMY TO ALL
+        EARTHLINGS, AND DEFINE THE FUTURE OF WORK
+      </h1>
+      <p>
+        Artificial intelligent avatars are interoperable across metaverses,
+        means it allows you to explore varied metaverses with your avatar
+        creations
+      </p>
+      <p>
+        iAvatars can be trained on varied skills, such as dancing, yoga,
+        modelling and customer services, which allows you to employ them in
+        varied metaverse and learn from other avatars
+      </p>
+      </div> 
     </div>
-    <div style={{ height: '200vh' }} id="homepage-text4">
+
+  
       <div className="dot" id="roadmap-info">
         <h1>Roadmap</h1>
         <div className="roadmap-container">
@@ -163,7 +165,7 @@ const Overlay = forwardRef(({ caption, scroll }, ref) => (
           </div>
         </div>
       </div>
-    </div>
+    
     <div style={{ height: '200vh' }} id="homepage-text5">
       <div className="dot">
         <h1>table</h1>A table is an item of furniture with a flat top and one or

@@ -58,12 +58,11 @@ body {
 
 .dot {
   pointer-events: none;
-  position: sticky;
-  top: 50%;
+  position: relative;
   display: flex;
   width: 100%;
   text-align: center;
-  padding: 80px;
+  padding: 33vh 0em;
   color: #a0a0a0;
   line-height: 1.6em;
   font-size: 15px;
@@ -73,16 +72,23 @@ body {
   height: 100vh;
 }
 
+#inner{
+  padding: 2em 4em;
+}
+
 .dot > h1 {
   -webkit-font-smoothing: auto;
   pointer-events: none;
   color: white;
   font-size: 5em;
   font-weight: 100;
-  line-height: 1em;
-  margin: 0;
   margin-bottom: 0.25em;
 }
+
+#inner  p{
+  padding: .5em 0em;
+}
+
 
 .tagline {
   position: relative;
@@ -126,10 +132,11 @@ body {
 
 #iavatarverse-info h1 {
   font-size: 2em;
+   line-height: 1.1em!important;
 }
 
 #roadmap-info {
-  top: 15%;
+  top: 25%;
 }
 
 .roadmap-container {
