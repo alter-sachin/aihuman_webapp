@@ -8,9 +8,8 @@ const Overlay = forwardRef(({ caption, scroll }, ref) => (
         e.target.scrollTop / (e.target.scrollHeight - window.innerHeight);
       caption.current.innerText = scroll.current.toFixed(2);
     }}
-    className="scroll">
-
-    
+    className="scroll"
+  >
     <div className="dot">
       <h1>AI Human</h1>
       <div className="tagline">
@@ -18,159 +17,168 @@ const Overlay = forwardRef(({ caption, scroll }, ref) => (
         <div>Earn online</div>
       </div>
     </div>
- 
-    
+
     <div className="dot">
       <h1>iSELF Token</h1>
-        <div className="tagline text">
-          <p>A currency to digital avatar generation and usability.</p>
-          <button type="button" className="buy-token-btn">
-            Buy $iSELF Token
-          </button>
-        </div>
+      <div className="tagline text">
+        <p>A currency to digital avatar generation and usability.</p>
+        <button type="button" className="buy-token-btn">
+          Buy $iSELF Token
+        </button>
+      </div>
     </div>
-
 
     <div className="dot" id="iavatarverse-info">
       <h3>iAvatarverse</h3>
       <div id="inner">
-         <h1>
-        WE ARE ON A MISSION TO GIVE ACCESS TO DIGITAL ECONOMY TO ALL
-        EARTHLINGS, AND DEFINE THE FUTURE OF WORK
-      </h1>
-      <p>
-        Artificial intelligent avatars are interoperable across metaverses,
-        means it allows you to explore varied metaverses with your avatar
-        creations
-      </p>
-      <p>
-        iAvatars can be trained on varied skills, such as dancing, yoga,
-        modelling and customer services, which allows you to employ them in
-        varied metaverse and learn from other avatars
-      </p>
-      </div> 
+        <h1>
+          WE ARE ON A MISSION TO GIVE ACCESS TO DIGITAL ECONOMY TO ALL
+          EARTHLINGS, AND DEFINE THE FUTURE OF WORK
+        </h1>
+        <p>
+          Artificial intelligent avatars are interoperable across metaverses,
+          means it allows you to explore varied metaverses with your avatar
+          creations
+        </p>
+        <p>
+          iAvatars can be trained on varied skills, such as dancing, yoga,
+          modelling and customer services, which allows you to employ them in
+          varied metaverse and learn from other avatars
+        </p>
+      </div>
     </div>
 
-  
-      <div className="dot" id="roadmap-info">
-        <h1>Roadmap</h1>
-        <div className="roadmap-container">
-          <div className="roadmap-item">
-            <h2>Quarter 1</h2>
-            <ul className="roadmap-list">
-              <li>
-                <div className="roadmap-list-dot" />
-                item 1
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 2
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 3
-              </li>
-            </ul>
-            <div className="roadmap-bottom-line" />
-            <div className="roadmap-bottom-orb" />
-          </div>
-          <div className="roadmap-item">
-            <h2>Quarter 2</h2>
-            <ul className="roadmap-list">
-              <li>
-                <div className="roadmap-list-dot" />
-                item 1
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 2
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 3
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 4
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 5
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 6
-              </li>
-            </ul>
-            <div className="roadmap-bottom-line" />
-            <div className="roadmap-bottom-orb" />
-          </div>
-          <div className="roadmap-item">
-            <h2>Quarter 3</h2>
-            <ul className="roadmap-list">
-              <li>
-                <div className="roadmap-list-dot" />
-                item 1
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 2
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 3
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 4
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 5
-              </li>
-            </ul>
-            <div className="roadmap-bottom-line" />
-            <div className="roadmap-bottom-orb" />
-          </div>
-          <div className="roadmap-item">
-            <h2>Quarter 4</h2>
-            <ul className="roadmap-list">
-              <li>
-                <div className="roadmap-list-dot" />
-                item 1
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 2
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 3
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 4
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 5
-              </li>
-              <li>
-                <div className="roadmap-list-dot" />
-                item 6
-              </li>
-            </ul>
-            <div className="roadmap-bottom-line" />
-            <div className="roadmap-bottom-orb" />
-          </div>
+    <div className="dot" id="roadmap-info">
+      <h1>Roadmap</h1>
+      <div className="roadmap-container">
+        <div className="roadmap-item">
+          <h2>Quarter 1</h2>
+          <ul className="roadmap-list">
+            <li>
+              <div className="roadmap-list-dot" />
+              item 1
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 2
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 3
+            </li>
+          </ul>
+          <div className="roadmap-bottom-line" />
+          <div className="roadmap-bottom-orb" />
+        </div>
+        <div className="roadmap-item">
+          <h2>Quarter 2</h2>
+          <ul className="roadmap-list">
+            <li>
+              <div className="roadmap-list-dot" />
+              item 1
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 2
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 3
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 4
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 5
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 6
+            </li>
+          </ul>
+          <div className="roadmap-bottom-line" />
+          <div className="roadmap-bottom-orb" />
+        </div>
+        <div className="roadmap-item">
+          <h2>Quarter 3</h2>
+          <ul className="roadmap-list">
+            <li>
+              <div className="roadmap-list-dot" />
+              item 1
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 2
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 3
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 4
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 5
+            </li>
+          </ul>
+          <div className="roadmap-bottom-line" />
+          <div className="roadmap-bottom-orb" />
+        </div>
+        <div className="roadmap-item">
+          <h2>Quarter 4</h2>
+          <ul className="roadmap-list">
+            <li>
+              <div className="roadmap-list-dot" />
+              item 1
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 2
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 3
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 4
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 5
+            </li>
+            <li>
+              <div className="roadmap-list-dot" />
+              item 6
+            </li>
+          </ul>
+          <div className="roadmap-bottom-line" />
+          <div className="roadmap-bottom-orb" />
         </div>
       </div>
-    
+    </div>
+
     <div style={{ height: '200vh' }} id="homepage-text5">
-      <div className="dot">
-        <h1>table</h1>A table is an item of furniture with a flat top and one or
-        more legs, used as a surface for working at, eating from or on which to
-        place things.[1][2]
+      <div className="dot" id="gateway-metaverse">
+        <img
+          src="https://assets-global.website-files.com/61dbe71db67f565007131340/61dbe71db67f569ba81313ef_XOID_XETA-(1)right%20(1).png"
+          alt="Avatar"
+        />
+        <div className="gateway-metaverse-text">
+          <h1>This is your gateway to the metaverse</h1>
+          <p>
+            An operating system to forge your Web 3.0 identity & dashboard. Gain
+            access to exclusive tools, communities, and worlds...
+          </p>
+        </div>
+        <img
+          src="https://assets-global.website-files.com/61dbe71db67f565007131340/61dbe71db67f568e141313a2_XOID_XEDE-1edit.png"
+          alt="Avatar"
+        />
       </div>
     </div>
     <div style={{ height: '200vh' }} id="homepage-text6">

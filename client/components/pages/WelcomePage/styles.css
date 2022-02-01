@@ -76,13 +76,14 @@ body {
   padding: 2em 4em;
 }
 
-.dot > h1 {
+.dot > h1, .gateway-metaverse-text > h1 {
   -webkit-font-smoothing: auto;
   pointer-events: none;
   color: white;
   font-size: 5em;
   font-weight: 100;
   margin-bottom: 0.25em;
+  line-height: 1em;
 }
 
 #inner  p{
@@ -178,6 +179,26 @@ body {
   background-color: #fff;
   left: -14px;
   top: -13px;
+}
+
+#gateway-metaverse {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#gateway-metaverse > img {
+  height: 30em;
+}
+
+.gateway-metaverse-text {
+  display: flex;
+  flex-direction: column;
+}
+
+#gateway-metaverse-text > p {
+  margin-top: 30px;
+  font-size: 1.25em;
 }
 
 @media only screen and (max-width: 1000px) {
