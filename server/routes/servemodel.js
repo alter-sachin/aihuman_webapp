@@ -8,4 +8,6 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'model.glb'));
 });
 
+
+
 module.exports = router;
