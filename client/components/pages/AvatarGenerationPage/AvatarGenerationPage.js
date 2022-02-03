@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './styles.css';
 
 export default function AvatarGenerationPage() {
@@ -7,11 +8,20 @@ export default function AvatarGenerationPage() {
   const [weight, setWeight] = useState(null);
   const [gender, setGender] = useState('');
   const [file, setFile] = useState(null);
-  const uploadLink = '';
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(file);
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('height', height);
+    formData.append('weight', weight);
+    formData.append('gender', gender);
+    formData.append('file', file);
+    await axios.post('/api/avatar', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   };
 
   return (
@@ -66,7 +76,7 @@ export default function AvatarGenerationPage() {
           <input
             type="file"
             name="photo"
-            onChange={(e) => setFile(e.target.files)}
+            onChange={(e) => setFile(e.target.files[0])}
           />
         </div>
         <button type="submit" onClick={handleSubmit}>
