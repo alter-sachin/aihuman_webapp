@@ -56,6 +56,7 @@
     "@react-three/drei": "^8.6.3",
     "@react-three/fiber": "^7.0.25",
     "animate.css": "^4.1.1",
+    "axios": "^0.25.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bulma": "0.9.3",
