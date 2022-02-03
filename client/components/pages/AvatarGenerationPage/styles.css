@@ -1,0 +1,19 @@
+.avatar-generation-form {
+  padding: 5rem 4rem;
+}
+
+.form-question {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 1rem;
+}
+
+.form-question label {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.form-question input {
+  padding: 1rem;
+}
