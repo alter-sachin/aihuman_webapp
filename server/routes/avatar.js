@@ -84,4 +84,13 @@ router.get('/:id', async (req, res) => {
   res.send(avatar);
 });
 
+router.post('/complete', async (req, res) => {
+  const avatarDetails = req.body;
+  const avatar = await Avatar.findOne({ id: avatarDetails.id });
+  avatar.status = 'COMPLETE';
+  avatar.avatarLink = avatarDetails.link;
+  avatar.save();
+  res.send('ok');
+});
+
 module.exports = router;
