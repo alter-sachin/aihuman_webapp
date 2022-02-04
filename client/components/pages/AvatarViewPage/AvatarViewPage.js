@@ -16,7 +16,7 @@ export default function AvatarViewPage(props) {
       if (data.status === 'COMPLETE') {
         clearInterval(poll);
       }
-    }, 1000);
+    }, 10000);
     return () => {
       clearInterval(poll);
     };
