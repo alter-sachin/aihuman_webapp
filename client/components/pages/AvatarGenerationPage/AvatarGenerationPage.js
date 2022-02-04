@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './styles.css';
+import { useDispatch } from 'react-redux';
+import { push } from 'connected-react-router';
 
 export default function AvatarGenerationPage() {
   const [name, setName] = useState('');
@@ -8,6 +10,7 @@ export default function AvatarGenerationPage() {
   const [weight, setWeight] = useState(null);
   const [gender, setGender] = useState('');
   const [file, setFile] = useState(null);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,11 +20,12 @@ export default function AvatarGenerationPage() {
     formData.append('weight', weight);
     formData.append('gender', gender);
     formData.append('file', file);
-    await axios.post('/api/avatar', formData, {
+    const avatarId = await axios.post('/api/avatar', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+    dispatch(push(`/view-avatar/${avatarId.data}`));
   };
 
   return (
