@@ -35,17 +35,18 @@ const parseFormFields = (fields) => {
   return parsedFields;
 };
 
-const pushToQueue = (avatarDetails) => {
+const pushToQueue = (newAvatar) => {
+  newAvatar.status = 'QUEUED';
   const sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
   const params = {
-    MessageBody: JSON.stringify(avatarDetails),
+    MessageBody: JSON.stringify(newAvatar),
     QueueUrl: process.env.AWS_SQS_URL,
   };
   sqs.sendMessage(params, (err, data) => {
     if (err) {
       console.error(err);
     } else {
-      console.log('Successfully added message', data.MessageId);
+      newAvatar.save();
     }
   });
 };
