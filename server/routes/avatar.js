@@ -11,6 +11,7 @@ const { Avatar } = require('../database/schemas');
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: 'ap-south-1',
 });
 
 const s3 = new AWS.S3();
@@ -34,6 +35,21 @@ const parseFormFields = (fields) => {
   return parsedFields;
 };
 
+const pushToQueue = (avatarDetails) => {
+  const sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
+  const params = {
+    MessageBody: JSON.stringify(avatarDetails),
+    QueueUrl: process.env.AWS_SQS_URL,
+  };
+  sqs.sendMessage(params, (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('Successfully added message', data.MessageId);
+    }
+  });
+};
+
 router.post('/', async (req, res) => {
   const form = new multiparty.Form();
   form.parse(req, async (error, fields, files) => {
@@ -52,6 +68,7 @@ router.post('/', async (req, res) => {
 
       const newAvatar = new Avatar(avatarDetails);
       newAvatar.save();
+      pushToQueue(newAvatar);
       return res.status(200).send(newAvatar.id);
     } catch (err) {
       console.error(err);
