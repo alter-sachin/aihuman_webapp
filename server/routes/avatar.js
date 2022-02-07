@@ -80,7 +80,6 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const avatar = await Avatar.findOne({ id: req.params.id });
-  console.log(avatar);
   res.send(avatar);
 });
 
