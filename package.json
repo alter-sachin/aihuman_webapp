@@ -15,7 +15,8 @@
     "test:verbose": "./scripts/test-verbose.sh",
     "test:coverage": "./scripts/test-coverage.sh",
     "test:watch-client": "./scripts/test-watch-client.sh",
-    "test:watch-server": "./scripts/test-watch-server.sh"
+    "test:watch-server": "./scripts/test-watch-server.sh",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
