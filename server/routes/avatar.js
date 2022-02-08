@@ -68,7 +68,9 @@ router.post('/', async (req, res) => {
       avatarDetails.photo = imageUploadLink.Location;
 
       const newAvatar = new Avatar(avatarDetails);
-      newAvatar.save();
+      console.log(newAvatar);
+      await newAvatar.save();
+      console.log('saved new avatar');
       pushToQueue(newAvatar);
       return res.status(200).send(newAvatar.id);
     } catch (err) {
