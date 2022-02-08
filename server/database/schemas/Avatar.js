@@ -7,6 +7,10 @@ const avatarSchema = new Schema({
   name: String,
   height: Number,
   weight: Number,
+  avatarLink: {
+    type: String,
+    required: false,
+  },
   gender: {
     type: String,
     enum: ['Male', 'Female'],
