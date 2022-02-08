@@ -60,7 +60,10 @@ router.post('/', async (req, res) => {
     try {
       const { path } = files.file[0];
       const buffer = fs.readFileSync(path);
-      const type = 'png'; // await fileType.fromBuffer(buffer);
+      const type = {
+        ext: 'png',
+        mime: 'image/png',
+      };
       const fileName = `user-upload/${Date.now().toString()}`;
       const imageUploadLink = await uploadFile(buffer, fileName, type);
 
