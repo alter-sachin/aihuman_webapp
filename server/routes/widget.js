@@ -4,9 +4,8 @@ const router = express.Router();
 
 const { WidgetQuestion, WidgetAnswer } = require('../database/schemas');
 
-router.get('/', async (req, res) => {
-  console.log(req.body);
-  const questionData = await WidgetQuestion.find({ id: req.body.id });
+router.get('/:id', async (req, res) => {
+  const questionData = await WidgetQuestion.find({ id: req.params.id });
   res.send(questionData);
 });
 
