@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { WidgetQuestion } = require('../database/schemas');
+const { WidgetQuestion, WidgetAnswer } = require('../database/schemas');
 
 router.get('/', async (req, res) => {
   console.log(req.body);
@@ -11,7 +11,9 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  console.log(req.body);
+  const response = new WidgetAnswer(req.body);
+  await response.save();
+  console.log(response);
   res.send('ok');
 });
 
