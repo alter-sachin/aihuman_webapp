@@ -10,10 +10,22 @@ router.get('/', async (req, res) => {
   res.send(questionData);
 });
 
-router.post('/', async (req, res) => {
-  const response = new WidgetAnswer(req.body);
+const parseResponse = (rawResponses, questionId) => {
+  const parsedResponse = {};
+  parsedResponse.question = questionId;
+  const responses = [];
+  Object.entries(rawResponses).forEach(([label, response]) => {
+    responses.push({ label, response });
+  });
+  parsedResponse.responses = responses;
+  return parsedResponse;
+};
+
+router.post('/:questionId', async (req, res) => {
+  const response = new WidgetAnswer(
+    parseResponse(req.body, req.params.questionId)
+  );
   await response.save();
-  console.log(response);
   res.send('ok');
 });
 
