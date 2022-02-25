@@ -5,7 +5,7 @@ const router = express.Router();
 const { WidgetQuestion, WidgetAnswer } = require('../database/schemas');
 
 router.get('/:id', async (req, res) => {
-  const questionData = await WidgetQuestion.find({ id: req.params.id });
+  const questionData = await WidgetQuestion.findOne({ id: req.params.id });
   res.send(questionData);
 });
 
@@ -25,7 +25,7 @@ router.post('/:questionId', async (req, res) => {
     parseResponse(req.body, req.params.questionId)
   );
   await response.save();
-  res.send('ok');
+  res.status(200).send(JSON.stringify(response));
 });
 
 module.exports = router;
