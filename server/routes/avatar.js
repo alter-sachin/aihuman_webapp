@@ -60,7 +60,10 @@ router.post('/', async (req, res) => {
     try {
       const { path } = files.file[0];
       const buffer = fs.readFileSync(path);
-      const type = 'png'; // await fileType.fromBuffer(buffer);
+      const type = {
+        ext: 'png',
+        mime: 'image/png',
+      };
       const fileName = `user-upload/${Date.now().toString()}`;
       const imageUploadLink = await uploadFile(buffer, fileName, type);
 
@@ -68,7 +71,9 @@ router.post('/', async (req, res) => {
       avatarDetails.photo = imageUploadLink.Location;
 
       const newAvatar = new Avatar(avatarDetails);
-      newAvatar.save();
+      console.log(newAvatar);
+      await newAvatar.save();
+      console.log('saved new avatar');
       pushToQueue(newAvatar);
       return res.status(200).send(newAvatar.id);
     } catch (err) {
