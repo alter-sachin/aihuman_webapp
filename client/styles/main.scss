@@ -1,6 +1,43 @@
+
+
 .main {
   margin-top: 44px;
   min-height: calc(100vh - 134px);
   width: 100vw;
   height: 25vh;
 }
+
+
+@font-face {
+    font-family: neptune;
+    src: url("./Neptune.otf")format("opentype");
+}
+
+
+
+@font-face {
+    font-family: varino;
+    src: url("./Varino-Bold.otf")format("opentype");
+}
+
+@font-face {
+    font-family: varinolight;
+    src: url("./Varino-Light.otf")format("opentype");
+}
+
+@font-face {
+    font-family: kross;
+    src: url("./kross.woff")format("woff");
+}
+
+
+.dot > h1, .navbar .logo {
+    font-family: varino!important;
+}
+
+
+.tagline {
+  font-family:kross!important;
+  font-size:1.5em!important;
+}
+

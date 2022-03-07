@@ -13,15 +13,15 @@ const Overlay = forwardRef(({ caption, scroll }, ref) => (
     <div className="dot">
       <h1>AI Human</h1>
       <div className="tagline">
-        <div>AI digital workforce</div>
-        <div>Earn online</div>
+        <div>Your digital workforce to help you play & earn</div>
+        <div>Autonomous Workers for the Metaverse & Real World</div>
       </div>
     </div>
 
     <div className="dot">
-      <h1>iSELF Token</h1>
+      <h1>SELF Token</h1>
       <div className="tagline text">
-        <p>A currency to digital avatar generation and usability.</p>
+        <p>A currency to create avatars with skills, Deploy them for Real Work & Real Money.</p>
         <button type="button" className="buy-token-btn">
           Buy $iSELF Token
         </button>
@@ -29,21 +29,21 @@ const Overlay = forwardRef(({ caption, scroll }, ref) => (
     </div>
 
     <div className="dot" id="iavatarverse-info">
-      <h3>iAvatarverse</h3>
+      <h3>Avatarverse</h3>
       <div id="inner">
         <h1>
-          WE ARE ON A MISSION TO GIVE ACCESS TO DIGITAL ECONOMY TO ALL
-          EARTHLINGS, AND DEFINE THE FUTURE OF WORK
+          OUR AVATARS ARE ON A MISSION TO GIVE YOU ACCESS TO THE DIGITAL ECONOMY,
+          WHILE LEARNING TO BE MORE HUMAN BY BEING DEPLOYED FOR ECONOMIC GOOD.
         </h1>
         <p>
           Artificial intelligent avatars are interoperable across metaverses,
-          means it allows you to explore varied metaverses with your avatar
+          Explore varied metaverses with your avatar
           creations
         </p>
         <p>
-          iAvatars can be trained on varied skills, such as dancing, yoga,
+          Avatars can be trained on varied skills, such as dancing, yoga,
           modelling and customer services, which allows you to employ them in
-          varied metaverse and learn from other avatars
+          varied metaverse and learn from other avatars.
         </p>
       </div>
     </div>
