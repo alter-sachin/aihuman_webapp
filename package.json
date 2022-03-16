@@ -92,6 +92,7 @@
     "seamless-immutable": "^7.1.4",
     "terser-webpack-plugin": "^5.2.4",
     "three": "^0.136.0",
+    "tiny-slider-react": "^0.5.4",
     "uuid": "^8.3.2",
     "webpack": "^5.53.0",
     "webpack-bundle-analyzer": "^4.4.2",
