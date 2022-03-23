@@ -8,6 +8,8 @@ const todos = require('./todos');
 const mindclone = require('./mindclone');
 const avatar = require('./avatar');
 const model = require('./servemodel');
+const bot = require('./bot');
+
 
 const router = express.Router();
 
@@ -18,6 +20,8 @@ router.use('/api/todos', todos);
 router.use('/api/mindclone', mindclone);
 router.use('/api/avatar', avatar);
 router.use('/api/model', model);
+
+
 
 router.get('/api/tags', (req, res) => {
   res.send([

@@ -17,6 +17,7 @@ import MindClonePage from '_pages/MindClonePage';
 import LostPage from '_pages/LostPage';
 import AvatarGenerationPage from '_pages/AvatarGenerationPage';
 import AvatarViewPage from '_pages/AvatarViewPage';
+import BotPage from '_pages/BotPage';
 
 import Navigation from '_organisms/Navigation';
 import Footer from '_organisms/Footer';
@@ -61,6 +62,22 @@ export default function Main({ location }) {
           </Switch>
         </div>
         <Footer />
+  return !loading && (
+    <div>
+      <ReactNotification />
+      <Navigation pathname={location.pathname} />
+      <div className="main">
+        <Switch>
+          <Route exact path="/" component={WelcomePage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/home" component={HomePage} />
+          <Route path="/todo" component={TodoPage} />
+          <Route path="/settings" component={SettingsPage} />
+          <Route path="/mindclone" component={MindClonePage} />
+          <Route path="/ecommerce-bot" component={BotPage} />
+          <Route path="*" component={LostPage} />
+        </Switch>
       </div>
     )
   );
