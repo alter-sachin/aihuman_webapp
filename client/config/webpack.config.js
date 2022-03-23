@@ -94,6 +94,10 @@ module.exports = {
           filename: 'fonts/[name][ext]',
         },
       },
+      {
+        test: /\.mp4$/,
+        use: 'file-loader?name=videos/[name].[ext]',
+      },
     ],
   },
   plugins: [

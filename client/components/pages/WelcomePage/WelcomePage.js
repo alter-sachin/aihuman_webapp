@@ -1,71 +1,59 @@
 import React, { useState } from 'react';
+import InfoCard from '_molecules/InfoCard';
 import './styles.css';
-import TinySlider from 'tiny-slider-react';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper';
+import 'swiper/css/autoplay';
+import 'swiper/css';
 
 const images = [
-  { id: 0, src: 'https://www.internetmadenft.com/assets/images/hero/personaje-01.webp' },
-  { id: 1, src: 'https://www.internetmadenft.com/assets/images/hero/personaje-02.webp' },
-  { id: 2, src: 'https://www.internetmadenft.com/assets/images/hero/personaje-03.webp' },
-  { id: 3, src: 'https://www.internetmadenft.com/assets/images/hero/personaje-04.webp' },
+  { id: 0, src: '/images/3.png', caption: 'Personal Assistant' },
+  { id: 1, src: '/images/fashion_1.png', caption: 'Fashion model' },
+  { id: 2, src: '/images/fitness_1.png', caption: 'Fitness trainer' },
 ];
 
 export default function WelcomePage() {
-  const [heroImage, setHeroImage] = useState(images[3].src);
-
-  const changeSlide = (slideClicked, info, event) => {
-    setHeroImage(event.target.currentSrc);
-  };
-
-  const settings = {
-    controls: false,
-    loop: true,
-    items: 1,
-    slideBy: 'page',
-    nav: false,
-    speed: 400,
-    gutter: 10,
-    autoplayButtonOutput: false,
-    mouseDrag: true,
-    lazyload: true,
-    axis: 'vertical',
-    responsive: {
-      640: {
-        items: 2,
-      },
-
-      768: {
-        items: 3,
-      },
-    },
-  };
-
   return (
-    <React.Fragment>
-      <div className="hero-container">
-        <div className="hero-image">
-          <img src={heroImage} alt="3D Model" />
-        </div>
-
-        <div className="hero-slider-container">
-          <TinySlider
-            settings={settings}
-            className="hero-slider"
-            onClick={changeSlide}
-          >
-            {images.map((img) => (
-              <div
-                key={img.id}
-                className="hero-slider-card"
-              >
-                <img
-                  src={img.src}
-                  alt="3D Model"
-                />
-              </div>
-            ))}
-          </TinySlider>
-        </div>
+    <div className="welcome-container">
+      <div className="hero-slider-container">
+        <Swiper
+          autoplay={{ delay: 3000 }}
+          modules={[Autoplay]}
+          className="hero-slider"
+        >
+          {images.map((img) => (
+            <SwiperSlide
+              key={img.id}
+            >
+              <img
+                src={img.src}
+                alt="3D Model"
+              />
+              <span>
+                <h2>AI HUMAN</h2>
+                <div className="horizontal-divider" />
+                <p>{img.caption}</p>
+              </span>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <p className="large-tagline">Deploy to Earn with AI Humans</p>
+        <video autoPlay muted loop>
+          <source src="videos/vid.mp4" type="video/mp4" />
+        </video>
       </div>
-    </React.Fragment>
+      <InfoCard
+        video="https://assets.mixkit.co/videos/download/mixkit-man-under-multicolored-lights-1237.mp4"
+        headingText="Conversationally intelligent"
+        paragraphText="Our AI humans can converse like a real person"
+      />
+      <InfoCard
+        video="https://assets.mixkit.co/videos/download/mixkit-man-under-multicolored-lights-1237.mp4"
+        headingText="Conversationally intelligent"
+        paragraphText="Our AI humans can converse like a real person"
+        reverse={true}
+      />
+    </div>
   );
 }

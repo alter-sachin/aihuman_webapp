@@ -1,0 +1,36 @@
+.card-container {
+    margin: 48px auto;
+    padding: 48px;
+    max-width: 80%;
+    border-radius: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-height: 70vh;
+}
+
+.video-container {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container video {
+    border-radius: 80px;
+    height: 800px;
+}
+
+.info-container {
+    width: 50%;
+    padding: 24px;
+}
+
+.info-container h2 {
+    font-size: 3.5rem;
+}
+
+.info-container p {
+    font-size: 1.5rem;
+}
