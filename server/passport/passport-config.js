@@ -31,4 +31,5 @@ module.exports = app => {
       .catch(err => console.warn(`err at deserialize: ${err}`)));
 
   passport.use(Strategies.local);
+  passport.use(Strategies.google);
 };

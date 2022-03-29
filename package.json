@@ -76,6 +76,7 @@
     "mongoose-auto-increment-reworked": "^1.2.1",
     "openai-api": "^1.2.6",
     "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.27.1",

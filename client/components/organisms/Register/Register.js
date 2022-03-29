@@ -166,6 +166,11 @@ export default function Register() {
           Create Account
         </Button>
       </div>
+      <Button>
+        <a href="http://localhost:3000/api/auth/google">
+          Sign up with Google
+        </a>
+      </Button>
     </Box>
   );
 }

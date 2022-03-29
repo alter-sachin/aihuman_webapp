@@ -69,3 +69,16 @@ router.post('/logout', (req, res) => {
     res.send({ message: 'Logged out successfully' });
   });
 });
+
+router.get('/google', passport.authenticate('google', {
+  scope: ['profile'],
+}));
+
+router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});

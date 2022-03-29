@@ -92,6 +92,11 @@ export default function Login() {
           <input type="checkbox" onChange={rememberMe} checked={remember} />
           <span>&nbsp; Remember me</span>
         </Checkbox>
+        <Button>
+          <a href="http://localhost:3000/api/auth/google">
+            Sign in with Google
+          </a>
+        </Button>
       </Control>
     </Box>
   );

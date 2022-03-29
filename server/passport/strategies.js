@@ -1,4 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { User } = require('../database/schemas');
 
 const Strategies = module.exports;
@@ -14,4 +15,29 @@ Strategies.local = new LocalStrategy((username, password, done) => {
     }
     return done(null, user);
   });
+});
+
+Strategies.google = new GoogleStrategy({
+  clientID: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  callbackURL: '/api/auth/google/redirect',
+}, (accessToken, refreshToken, profile, done) => {
+  User.findOne({ username: profile.id.toLowerCase() })
+    .then(user => {
+      console.log(user);
+      if (user) {
+        done(null, user);
+      }
+      else {
+        new User({
+          username: profile.id.toLowerCase(),
+          username_case: profile.id,
+          googleAuth: true,
+        })
+          .save()
+          .then(newUser => {
+            done(null, newUser);
+          });
+      }
+    });
 });

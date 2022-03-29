@@ -8,13 +8,14 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   username: { type: String, lowercase: true, required: true, unique: true, immutable: true },
   username_case: { type: String, required: true },
-  password: { type: String, required: true },
+  password: { type: String },
   profile_pic: { type: String },
   first_name: { type: String, maxlength: 20 },
   last_name: { type: String, maxlength: 20 },
   bio: { type: String, maxlength: 240 },
   created_at: { type: Date, default: Date.now, immutable: true },
   updated_at: { type: Date },
+  googleAuth: { type: Boolean, default: false },
 }, { versionKey: false });
 
 if (process.env.NODE_ENV !== 'test') {
