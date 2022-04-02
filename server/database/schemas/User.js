@@ -16,6 +16,12 @@ const userSchema = new Schema({
   created_at: { type: Date, default: Date.now, immutable: true },
   updated_at: { type: Date },
   googleAuth: { type: Boolean, default: false },
+  forms: [
+    {
+      title: String,
+      description: String,
+      questions: [Object],
+    }],
 }, { versionKey: false });
 
 if (process.env.NODE_ENV !== 'test') {
