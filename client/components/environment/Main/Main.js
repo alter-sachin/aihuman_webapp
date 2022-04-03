@@ -16,6 +16,7 @@ import SettingsPage from '_pages/SettingsPage';
 import MindClonePage from '_pages/MindClonePage';
 import LostPage from '_pages/LostPage';
 import ChatbotsPage from '_pages/ChatbotsPage';
+import ChatbotEditPage from '_pages/ChatbotEditPage';
 
 import Navigation from '_organisms/Navigation';
 import Footer from '_organisms/Footer';
@@ -52,6 +53,7 @@ export default function Main({ location }) {
           <Route path="/settings" component={SettingsPage} />
           <Route path="/mindclone" component={MindClonePage} />
           <Route path="/chatbots" component={ChatbotsPage} />
+          <Route path="/chatbot/:id" component={ChatbotEditPage} />
           <Route path="*" component={LostPage} />
         </Switch>
       </div>
