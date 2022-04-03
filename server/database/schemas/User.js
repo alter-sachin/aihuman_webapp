@@ -16,7 +16,7 @@ const userSchema = new Schema({
   created_at: { type: Date, default: Date.now, immutable: true },
   updated_at: { type: Date },
   googleAuth: { type: Boolean, default: false },
-  forms: [
+  chatbots: [
     {
       title: String,
       description: String,

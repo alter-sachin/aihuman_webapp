@@ -4,52 +4,53 @@ const router = express.Router();
 
 const { User } = require('../database/schemas');
 
-// get all forms of a user
-router.get('/:id', async(req, res) => {
+// get all chatbots of a user
+router.get('/', async(req, res) => {
+  console.log(req.user);
   const user = await User.findById(req.params.id);
   if (!user) {
     res.send(404);
     return;
   }
-  res.send(user.forms);
+  res.send(user.chatbots);
 });
 
-// get form by id
-router.get('/:id/:formId', async(req, res) => {
+// get chatbot by id
+router.get('/:id/:chatbotId', async(req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     res.send(404);
     return;
   }
-  const form = user.forms.filter(form => form.id === req.params.formId);
-  if (form === []) {
+  const chatbot = user.chatbots.filter(chatbot => chatbot.id === req.params.chatbotId);
+  if (chatbot === []) {
     res.send(404);
     return;
   }
-  res.send(form);
+  res.send(chatbot);
 });
 
-// add a new form
-router.post('/:id/:formId', async(req, res) => {
+// add a new chatbot
+router.post('/:id', async(req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     res.send(404);
     return;
   }
 
-  user.forms.push(req.body);
+  user.chatbots.push(req.body);
   await user.save();
 });
 
-// delete form by id
-router.delete('/:id/:formId', async(req, res) => {
+// delete chatbot by id
+router.delete('/:id/:chatbotId', async(req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     res.send(404);
     return;
   }
 
-  const forms = user.forms.filter(form => form.id !== req.params.formId);
+  const chatbots = user.chatbots.filter(form => form.id !== req.params.formId);
   user.forms = forms;
   await user.save();
   res.send(204);
