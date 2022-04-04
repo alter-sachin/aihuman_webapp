@@ -8,6 +8,7 @@ export default function ChatbotEditSection({ chatbot }) {
   return (
     <Container>
       <Title size="2">{chatbot.title}</Title>
+      <Title size="4">{chatbot.description}</Title>
     </Container>
   );
 }
