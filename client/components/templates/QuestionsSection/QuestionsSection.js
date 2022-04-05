@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
+import QuestionEditModal from '_templates/QuestionEditModal';
+
 export default function QuestionsSection({ questions }) {
   const [itemsList, setItemsList] = useState(questions);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -18,6 +21,7 @@ export default function QuestionsSection({ questions }) {
     userSelect: 'none',
     padding: grid * 2,
     margin: `0 ${grid}px 0 0`,
+    cursor: 'pointer',
 
     // change background colour if dragging
     background: isDragging ? 'lightgreen' : 'grey',
@@ -47,37 +51,46 @@ export default function QuestionsSection({ questions }) {
     setItemsList(items);
   };
 
+  const openQuestionEditModal = item => {
+
+  };
+
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable" direction="horizontal">
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
-            {...provided.droppableProps}
-          >
-            {itemsList.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style,
-                    )}
-                  >
-                    {item.text}
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <React.Fragment>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable" direction="horizontal">
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver)}
+              {...provided.droppableProps}
+            >
+              {itemsList.map((item, index) => (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {(provided, snapshot) => (
+                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style,
+                      )}
+                      onClick={() => openQuestionEditModal(item)}
+                    >
+                      {item.text}
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      <QuestionEditModal isOpen={isModalOpen} />
+    </React.Fragment>
   );
 }
 
