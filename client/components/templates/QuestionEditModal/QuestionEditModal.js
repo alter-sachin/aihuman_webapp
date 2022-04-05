@@ -47,6 +47,7 @@ export default function QuestionEditModal({ isOpen, question }) {
 
   const handleCheckboxChange = () => {
     setIsMultipleChoice(!isMultipleChoice);
+    if (!isMultipleChoice) setOptions([]);
   };
 
   return (
