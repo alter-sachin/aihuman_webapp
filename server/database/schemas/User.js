@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { MongooseAutoIncrementID } = require('mongoose-auto-increment-reworked');
 const bcrypt = require('bcryptjs');
 const R = require('ramda');
+const questionSchema = require('./Question');
 
 const { Schema } = mongoose;
 
@@ -20,7 +21,7 @@ const userSchema = new Schema({
     {
       title: String,
       description: String,
-      questions: [Object],
+      questions: [questionSchema],
     }],
 }, { versionKey: false });
 

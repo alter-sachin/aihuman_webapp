@@ -34,7 +34,7 @@ router.get('/:id/:chatbotId', async(req, res) => {
 router.post('/:id', async(req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) {
-    res.send(404);
+    res.status(404).send('user not found');
     return;
   }
 
