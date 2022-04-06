@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { push } from 'connected-react-router';
 
 import Card from 'react-bulma-companion/lib/Card';
 import Content from 'react-bulma-companion/lib/Content';
@@ -8,6 +10,12 @@ import Container from 'react-bulma-companion/lib/Container';
 import Tile from 'react-bulma-companion/lib/Tile';
 
 export default function ChatbotsSection({ chatbots }) {
+  const dispatch = useDispatch();
+
+  const openQuestionEditPage = idx => {
+    dispatch(push(`/chatbot/${chatbots[idx].id}`));
+  };
+
   return (
     <Tile type="ancestor">
 
@@ -27,7 +35,7 @@ export default function ChatbotsSection({ chatbots }) {
       </Tile>
 
       {chatbots.map((chatbot, idx) => (
-        <Tile key={idx} vertical>
+        <Tile key={idx} vertical onClick={() => openQuestionEditPage(idx)}>
           <Container fluid>
             <Card>
               <Card.Content>
