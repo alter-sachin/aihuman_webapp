@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { useDispatch, useSelector } from 'react-redux';
+import R from 'ramda';
+import { attemptChatbotUpdate } from '_thunks/user';
 
 import QuestionEditModal from '_templates/QuestionEditModal';
 
-export default function QuestionsSection({ questions }) {
-  const [itemsList, setItemsList] = useState(questions);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+export default function QuestionsSection({ questions, chatbotId }) {
+  const [questionsList, setQuestionsList] = useState(questions);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [question, setQuestion] = useState();
+
+  const { user } = useSelector(R.pick(['user']));
+  const dispatch = useDispatch();
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -43,16 +50,37 @@ export default function QuestionsSection({ questions }) {
     }
 
     const items = reorder(
-      itemsList,
+      questionsList,
       result.source.index,
       result.destination.index,
     );
 
-    setItemsList(items);
+    setQuestionsList(items);
   };
 
-  const openQuestionEditModal = item => {
+  const openQuestionEditModal = question => {
+    setQuestion(question);
+    setIsModalOpen(true);
+  };
 
+  const saveData = data => {
+    const updatedUser = user;
+
+    // get the chatbot where changes have been made
+    const chatbot = updatedUser.chatbots.filter(chatbot => chatbot.id === chatbotId)[0];
+    const idx = updatedUser.chatbots.indexOf(chatbot);
+
+    // get the question where changes have been made
+    const question = chatbot.questions.filter(question => question.id === data.id)[0];
+
+    // make changes in the chatbot
+    chatbot.questions[chatbot.questions.indexOf(question)] = data;
+
+    // make changes in the user
+    updatedUser.chatbots[idx] = chatbot;
+
+    // save changes
+    dispatch(attemptChatbotUpdate(updatedUser, chatbotId));
   };
 
   return (
@@ -65,8 +93,12 @@ export default function QuestionsSection({ questions }) {
               style={getListStyle(snapshot.isDraggingOver)}
               {...provided.droppableProps}
             >
-              {itemsList.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
+              {questionsList.map((item, index) => (
+                <Draggable
+                  key={item.id}
+                  draggableId={item.id}
+                  index={index}
+                >
                   {(provided, snapshot) => (
                   // eslint-disable-next-line jsx-a11y/click-events-have-key-events
                     <div
@@ -89,11 +121,17 @@ export default function QuestionsSection({ questions }) {
           )}
         </Droppable>
       </DragDropContext>
-      <QuestionEditModal isOpen={isModalOpen} />
+      <QuestionEditModal
+        isOpen={isModalOpen}
+        question={question}
+        setIsOpen={setIsModalOpen}
+        saveUpdatedData={saveData}
+      />
     </React.Fragment>
   );
 }
 
 QuestionsSection.propTypes = {
   questions: PropTypes.array.isRequired,
+  chatbotId: PropTypes.string.isRequired,
 };

@@ -6,7 +6,6 @@ const { User } = require('../database/schemas');
 
 // get all chatbots of a user
 router.get('/', async(req, res) => {
-  console.log(req.user);
   const user = await User.findById(req.params.id);
   if (!user) {
     res.send(404);
@@ -50,28 +49,29 @@ router.delete('/:id/:chatbotId', async(req, res) => {
     return;
   }
 
-  const chatbots = user.chatbots.filter(form => form.id !== req.params.formId);
-  user.forms = forms;
+  const chatbots = user.chatbots.filter(chatbot => chatbot.id !== req.params.chatbotId);
+  user.chatbots = chatbots;
   await user.save();
   res.send(204);
 });
 
-// update form
-router.put('/:id/:formId', async(req, res) => {
-  const user = await User.findById(req.params.id);
+// update chatbot
+router.put('/:chatbotId', async(req, res) => {
+
+  // get user
+  const user = await User.findById(req.user.id);
   if (!user) {
-    res.send(404);
+    res.status(404).send('user not found');
     return;
   }
 
-  // get the form
-  const form = user.forms.filter(form => form.id === req.params.formId)[0];
+  const { chatbots } = req.body;
+  const changedChatbot = chatbots.filter(chatbot => chatbot.id === req.params.chatbotId)[0];
 
-  // get all other forms
-  const forms = user.forms.filter(form => form.id !== req.params.formId);
-  user.forms = forms;
-
-  user.forms.push();
+  const userChatbotIndex = user.chatbots.findIndex(chatbot => chatbot.id === req.params.chatbotId);
+  Object.assign(user.chatbots[userChatbotIndex], changedChatbot);
+  await user.save();
+  res.status(201).send({ message: 'Question updated!' });
 });
 
 module.exports = router;

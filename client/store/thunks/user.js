@@ -1,7 +1,7 @@
 import { snakeToCamelCase } from 'json-style-converter/es5';
 import { store as RNC } from 'react-notifications-component';
 
-import { getUser, putUser, putUserPassword } from '_api/user';
+import { getUser, putUser, putChatbot, putUserPassword } from '_api/user';
 import { updateUser } from '_actions/user';
 
 import { dispatchError } from '_utils/api';
@@ -37,6 +37,25 @@ export const attemptUpdateUser = updatedUser => dispatch =>
 
 export const attemptUpdatePassword = passwordInfo => dispatch =>
   putUserPassword(passwordInfo)
+    .then(data => {
+      RNC.addNotification({
+        title: 'Success!',
+        message: data.message,
+        type: 'success',
+        container: 'top-right',
+        animationIn: ['animated', 'fadeInRight'],
+        animationOut: ['animated', 'fadeOutRight'],
+        dismiss: {
+          duration: 5000,
+        },
+      });
+
+      return data;
+    })
+    .catch(dispatchError(dispatch));
+
+export const attemptChatbotUpdate = (updatedUser, chatbotId) => dispatch =>
+  putChatbot(updatedUser, chatbotId)
     .then(data => {
       RNC.addNotification({
         title: 'Success!',

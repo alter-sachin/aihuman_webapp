@@ -13,7 +13,6 @@ const questionSchema = new Schema({
   },
   videoLink: {
     type: String,
-    required: true,
   },
   options: {
     type: Array,

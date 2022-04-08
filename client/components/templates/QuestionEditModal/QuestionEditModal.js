@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from 'react-bulma-companion/lib/Modal';
@@ -11,11 +11,17 @@ import Control from 'react-bulma-companion/lib/Control';
 import Help from 'react-bulma-companion/lib/Help';
 import Checkbox from 'react-bulma-companion/lib/Checkbox';
 
-export default function QuestionEditModal({ isOpen, question }) {
-  const [text, setText] = useState('');
-  const [identifier, setIdentifier] = useState('');
-  const [options, setOptions] = useState([]);
+export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpdatedData }) {
+  const [text, setText] = useState(question.text);
+  const [name, setName] = useState(question.name);
+  const [options, setOptions] = useState(question.options);
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
+
+  useEffect(() => {
+    setText(question.text);
+    setName(question.name);
+    setOptions(question.options);
+  }, [isOpen]);
 
   const addNewOptionField = () => {
     setOptions([...options, {
@@ -41,13 +47,33 @@ export default function QuestionEditModal({ isOpen, question }) {
     setText(e.target.value);
   };
 
-  const handleIdentifierChange = e => {
-    setIdentifier(e.target.value);
+  const handleNameChange = e => {
+    setName(e.target.value);
   };
 
   const handleCheckboxChange = () => {
     setIsMultipleChoice(!isMultipleChoice);
     if (!isMultipleChoice) setOptions([]);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const resetData = () => {
+    setText('');
+    setName('');
+    setOptions([]);
+    closeModal();
+  };
+
+  const saveData = () => {
+    const data = {};
+    data.text = text;
+    data.name = name;
+    data.options = options;
+    data.id = question.id;
+    saveUpdatedData(data);
   };
 
   return (
@@ -58,14 +84,14 @@ export default function QuestionEditModal({ isOpen, question }) {
           <Modal.CardTitle>
             Question
           </Modal.CardTitle>
-          <Delete />
+          <Delete onClick={closeModal} />
         </Modal.CardHead>
         <Modal.CardBody>
 
           <Field>
             <Label>Question text</Label>
             <Control>
-              <Input placeholder="Eg: What is your name?" onChange={handleTextChange} />
+              <Input placeholder="Eg: What is your name?" onChange={handleTextChange} value={text} />
             </Control>
             <Help>This text will be converted into a video.</Help>
           </Field>
@@ -73,7 +99,7 @@ export default function QuestionEditModal({ isOpen, question }) {
           <Field>
             <Label>Unique identifier</Label>
             <Control>
-              <Input placeholder="Eg: name" onChange={handleIdentifierChange} />
+              <Input placeholder="Eg: name" onChange={handleNameChange} value={name} />
             </Control>
             <Help>This will identify which response belongs to which question.</Help>
           </Field>
@@ -90,10 +116,10 @@ export default function QuestionEditModal({ isOpen, question }) {
                 <React.Fragment key={option.id}>
                   <Field>
                     <Control>
-                      <Input onChange={e => changeOptionValue(e, idx)} placeholder="Option" />
+                      <Input onChange={e => changeOptionValue(e, idx)} placeholder="Option" value={options[idx].text} />
                     </Control>
                   </Field>
-                  <Delete color="danger" onClick={_ => deleteOptionField(idx)} />
+                  <Delete color="danger" onClick={() => deleteOptionField(idx)} />
                 </React.Fragment>
               ))}
               <Button onClick={addNewOptionField}>Add option</Button>
@@ -103,8 +129,8 @@ export default function QuestionEditModal({ isOpen, question }) {
 
         </Modal.CardBody>
         <Modal.CardFoot>
-          <Button color="success" onClick={() => console.log(text, identifier, options)}>Save Changes</Button>
-          <Button>Cancel</Button>
+          <Button color="success" onClick={saveData}>Save Changes</Button>
+          <Button onClick={resetData}>Cancel</Button>
         </Modal.CardFoot>
       </Modal.Card>
     </Modal>
@@ -114,8 +140,14 @@ export default function QuestionEditModal({ isOpen, question }) {
 QuestionEditModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   question: PropTypes.object,
+  setIsOpen: PropTypes.func.isRequired,
+  saveUpdatedData: PropTypes.func.isRequired,
 };
 
 QuestionEditModal.defaultProps = {
-  question: {},
+  question: {
+    text: '',
+    name: '',
+    options: [],
+  },
 };
