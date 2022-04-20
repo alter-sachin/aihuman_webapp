@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import R from 'ramda';
-import { attemptChatbotUpdate } from '_thunks/user';
+import { attemptChatbotUpdate, attemptGenerateChabot } from '_thunks/user';
+import Button from 'react-bulma-companion/lib/Button';
 
 import QuestionEditModal from '_templates/QuestionEditModal';
 
@@ -83,6 +84,10 @@ export default function QuestionsSection({ questions, chatbotId }) {
     dispatch(attemptChatbotUpdate(updatedUser, chatbotId));
   };
 
+  const generateChatbot = () => {
+    dispatch(attemptGenerateChabot(chatbotId));
+  };
+
   return (
     <React.Fragment>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -121,6 +126,9 @@ export default function QuestionsSection({ questions, chatbotId }) {
           )}
         </Droppable>
       </DragDropContext>
+
+      <Button color="success" onClick={generateChatbot}>Generate Chatbot</Button>
+
       <QuestionEditModal
         isOpen={isModalOpen}
         question={question}

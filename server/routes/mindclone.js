@@ -40,7 +40,7 @@ router.post('/', async(req, res) => {
     res.send(gptResponse.data);
   }
   catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 

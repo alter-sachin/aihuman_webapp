@@ -24,7 +24,6 @@ Strategies.google = new GoogleStrategy({
 }, (accessToken, refreshToken, profile, done) => {
   User.findOne({ username: profile.id.toLowerCase() })
     .then(user => {
-      console.log(user);
       if (user) {
         done(null, user);
       }

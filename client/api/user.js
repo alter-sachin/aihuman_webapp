@@ -23,3 +23,9 @@ export const putChatbot = (updatedUser, chatbotId) =>
     .send(updatedUser)
     .then(handleSuccess)
     .catch(handleError);
+
+export const getGenerateChatbot = (chatbotId) =>
+  request.get(`/api/chatbot/generate/${chatbotId}`)
+    .send()
+    .then(handleSuccess)
+    .catch(handleError);
