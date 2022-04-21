@@ -16,7 +16,6 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
   const [name, setName] = useState(question.name);
   const [options, setOptions] = useState(question.options);
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
-
   useEffect(() => {
     setText(question.text);
     setName(question.name);
@@ -87,7 +86,10 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
           <Delete onClick={closeModal} />
         </Modal.CardHead>
         <Modal.CardBody>
-
+          {question.videoLink && (
+            // eslint-disable-next-line jsx-a11y/media-has-caption
+            <video src={question.videoLink} autoPlay />
+          )}
           <Field>
             <Label>Question text</Label>
             <Control>
