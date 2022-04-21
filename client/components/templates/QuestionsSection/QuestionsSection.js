@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import R from 'ramda';
 import { attemptChatbotUpdate, attemptGenerateChabot } from '_thunks/user';
 import Button from 'react-bulma-companion/lib/Button';
+import { v4 as uuid } from 'uuid';
 
 import QuestionEditModal from '_templates/QuestionEditModal';
 
@@ -59,8 +60,15 @@ export default function QuestionsSection({ questions, chatbotId }) {
     setQuestionsList(items);
   };
 
-  const openQuestionEditModal = question => {
-    setQuestion(question);
+  const openQuestionEditModal = (question) => {
+    let currentQuestion = question;
+    if (!question) {
+      currentQuestion = { text: '', name: '', options: [], id: uuid() };
+      const newQuestionsList = [...questionsList];
+      newQuestionsList.push(currentQuestion);
+      setQuestionsList(newQuestionsList);
+    }
+    setQuestion(currentQuestion);
     setIsModalOpen(true);
   };
 
@@ -73,9 +81,11 @@ export default function QuestionsSection({ questions, chatbotId }) {
 
     // get the question where changes have been made
     const question = chatbot.questions.filter(question => question.id === data.id)[0];
-
-    // make changes in the chatbot
-    chatbot.questions[chatbot.questions.indexOf(question)] = data;
+    if (!question) {
+      chatbot.questions.push(data);
+    } else {
+      chatbot.questions[chatbot.questions.indexOf(question)] = data;
+    }
 
     // make changes in the user
     updatedUser.chatbots[idx] = chatbot;
@@ -126,6 +136,8 @@ export default function QuestionsSection({ questions, chatbotId }) {
           )}
         </Droppable>
       </DragDropContext>
+
+      <Button color="success" onClick={() => openQuestionEditModal()}>Add question</Button>
 
       <Button color="success" onClick={generateChatbot}>Generate Chatbot</Button>
 
