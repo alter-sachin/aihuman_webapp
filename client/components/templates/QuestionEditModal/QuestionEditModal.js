@@ -69,9 +69,9 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
 
   const saveData = () => {
     const data = {};
-    data.text = text;
-    data.name = name;
-    data.options = options;
+    if (text !== question.text) data.text = text;
+    if (name !== question.name) data.name = name;
+    if (options !== question.options) data.options = options;
     data.id = question.id;
     saveUpdatedData(data);
   };

@@ -18,9 +18,15 @@ export const putUserPassword = passwordInfo =>
     .then(handleSuccess)
     .catch(handleError);
 
-export const putChatbot = (updatedUser, chatbotId) =>
-  request.put(`/api/chatbot/${chatbotId}`)
-    .send(updatedUser)
+export const putQuestion = (data, chatbotId) =>
+  request.put(`/api/chatbot/question/${chatbotId}`)
+    .send(data)
+    .then(handleSuccess)
+    .catch(handleError);
+
+export const postQuestion = (chatbotId) =>
+  request.post(`/api/chatbot/${chatbotId}`)
+    .send()
     .then(handleSuccess)
     .catch(handleError);
 

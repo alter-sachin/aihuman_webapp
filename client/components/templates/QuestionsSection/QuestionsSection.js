@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useDispatch, useSelector } from 'react-redux';
-import R from 'ramda';
-import { attemptChatbotUpdate, attemptGenerateChabot } from '_thunks/user';
+import { useDispatch } from 'react-redux';
+import { attemptQuestionUpdate, attemptGenerateChabot, attemptQuestionCreate } from '_thunks/user';
 import Button from 'react-bulma-companion/lib/Button';
-import { v4 as uuid } from 'uuid';
 
 import QuestionEditModal from '_templates/QuestionEditModal';
 
@@ -14,7 +12,6 @@ export default function QuestionsSection({ questions, chatbotId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [question, setQuestion] = useState();
 
-  const { user } = useSelector(R.pick(['user']));
   const dispatch = useDispatch();
 
   const reorder = (list, startIndex, endIndex) => {
@@ -60,38 +57,17 @@ export default function QuestionsSection({ questions, chatbotId }) {
     setQuestionsList(items);
   };
 
+  const createNewQuestion = () => {
+    dispatch(attemptQuestionCreate(chatbotId));
+  };
+
   const openQuestionEditModal = (question) => {
-    let currentQuestion = question;
-    if (!question) {
-      currentQuestion = { text: '', name: '', options: [], id: uuid() };
-      const newQuestionsList = [...questionsList];
-      newQuestionsList.push(currentQuestion);
-      setQuestionsList(newQuestionsList);
-    }
-    setQuestion(currentQuestion);
+    setQuestion(question);
     setIsModalOpen(true);
   };
 
-  const saveData = data => {
-    const updatedUser = user;
-
-    // get the chatbot where changes have been made
-    const chatbot = updatedUser.chatbots.filter(chatbot => chatbot.id === chatbotId)[0];
-    const idx = updatedUser.chatbots.indexOf(chatbot);
-
-    // get the question where changes have been made
-    const question = chatbot.questions.filter(question => question.id === data.id)[0];
-    if (!question) {
-      chatbot.questions.push(data);
-    } else {
-      chatbot.questions[chatbot.questions.indexOf(question)] = data;
-    }
-
-    // make changes in the user
-    updatedUser.chatbots[idx] = chatbot;
-
-    // save changes
-    dispatch(attemptChatbotUpdate(updatedUser, chatbotId));
+  const saveQuestionData = data => {
+    dispatch(attemptQuestionUpdate(data, chatbotId));
   };
 
   const generateChatbot = () => {
@@ -137,7 +113,7 @@ export default function QuestionsSection({ questions, chatbotId }) {
         </Droppable>
       </DragDropContext>
 
-      <Button color="success" onClick={() => openQuestionEditModal()}>Add question</Button>
+      <Button color="success" onClick={createNewQuestion}>Add question</Button>
 
       <Button color="success" onClick={generateChatbot}>Generate Chatbot</Button>
 
@@ -145,7 +121,7 @@ export default function QuestionsSection({ questions, chatbotId }) {
         isOpen={isModalOpen}
         question={question}
         setIsOpen={setIsModalOpen}
-        saveUpdatedData={saveData}
+        saveUpdatedData={saveQuestionData}
       />
     </React.Fragment>
   );

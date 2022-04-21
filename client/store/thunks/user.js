@@ -1,7 +1,7 @@
 import { snakeToCamelCase } from 'json-style-converter/es5';
 import { store as RNC } from 'react-notifications-component';
 
-import { getUser, putUser, putChatbot, putUserPassword, getGenerateChatbot } from '_api/user';
+import { getUser, putUser, putQuestion, postQuestion, putUserPassword, getGenerateChatbot } from '_api/user';
 import { updateUser } from '_actions/user';
 
 import { dispatchError } from '_utils/api';
@@ -54,12 +54,13 @@ export const attemptUpdatePassword = passwordInfo => dispatch =>
     })
     .catch(dispatchError(dispatch));
 
-export const attemptChatbotUpdate = (updatedUser, chatbotId) => dispatch =>
-  putChatbot(updatedUser, chatbotId)
-    .then(data => {
+export const attemptQuestionUpdate = (data, chatbotId) => dispatch =>
+  putQuestion(data, chatbotId)
+    .then(res => {
+      dispatch(updateUser(snakeToCamelCase(res.user)));
       RNC.addNotification({
         title: 'Success!',
-        message: data.message,
+        message: res.message,
         type: 'success',
         container: 'top-right',
         animationIn: ['animated', 'fadeInRight'],
@@ -69,7 +70,27 @@ export const attemptChatbotUpdate = (updatedUser, chatbotId) => dispatch =>
         },
       });
 
-      return data;
+      return res;
+    })
+    .catch(dispatchError(dispatch));
+
+export const attemptQuestionCreate = (chatbotId) => dispatch =>
+  postQuestion(chatbotId)
+    .then(res => {
+      dispatch(updateUser(snakeToCamelCase(res.user)));
+      RNC.addNotification({
+        title: 'Success!',
+        message: res.message,
+        type: 'success',
+        container: 'top-right',
+        animationIn: ['animated', 'fadeInRight'],
+        animationOut: ['animated', 'fadeOutRight'],
+        dismiss: {
+          duration: 5000,
+        },
+      });
+
+      return res;
     })
     .catch(dispatchError(dispatch));
 

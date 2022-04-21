@@ -19,16 +19,16 @@ router.get('/', async(req, res) => {
   res.send(user.chatbots);
 });
 
-// add a new chatbot
-router.post('/:id', async(req, res) => {
-  const user = await User.findById(req.params.id);
-  if (!user) {
-    res.status(404).send('user not found');
-    return;
-  }
+// add a new question
+router.post('/:chatbotId', async(req, res) => {
+  const { chatbotId } = req.params;
+  const user = await User.findById(req.user.id);
 
-  user.chatbots.push(req.body);
+  const index = user.chatbots.findIndex(chatbot => chatbot.id === chatbotId);
+
+  user.chatbots[index].questions.push({ text: 'Sample question', name: 'sampleName' });
   await user.save();
+  res.send({ message: 'Sample question created. Edit to personalize.', user: user.hidePassword() });
 });
 
 // delete chatbot by id
@@ -47,24 +47,35 @@ router.delete('/:id/:chatbotId', async(req, res) => {
 
 // update chatbot
 router.put('/:chatbotId', async(req, res) => {
-  // get user
+  const { chatbotId } = req.params;
+  const data = req.body;
+
   const user = await User.findById(req.user.id);
-  if (!user) {
-    res.status(404).send({ message: 'User not found' });
-    return;
-  }
-
-  const { chatbots } = req.body;
-  const changedChatbot = chatbots.filter(
-    (chatbot) => chatbot.id === req.params.chatbotId,
-  )[0];
-
-  const userChatbotIndex = user.chatbots.findIndex(
-    (chatbot) => chatbot.id === req.params.chatbotId,
+  const index = user.chatbots.findIndex(
+    (chatbot) => chatbot.id === chatbotId,
   );
-  Object.assign(user.chatbots[userChatbotIndex], changedChatbot);
+
+  if (data.title) user.chatbots[index].title = data.title;
+  if (data.description) user.chatbots[index].description = data.description;
+
+  res.send({ message: 'Chatbot updated!' });
+});
+
+// update question
+router.put('/question/:chatbotId', async(req, res) => {
+  const { chatbotId } = req.params;
+  const data = req.body;
+
+  const user = await User.findById(req.user.id);
+  const chatbotIndex = user.chatbots.findIndex(
+    chatbot => chatbot.id === chatbotId,
+  );
+  const questionIndex = user.chatbots[chatbotIndex].questions.findIndex(question => question.id === data.id);
+
+  Object.assign(user.chatbots[chatbotIndex].questions[questionIndex], data);
   await user.save();
-  res.send({ message: 'Question updated!' });
+
+  res.send({ message: 'Chatbot updated!', user: user.hidePassword() });
 });
 
 const textToSpeech = async(bot, text) => {
