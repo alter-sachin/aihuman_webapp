@@ -11,7 +11,7 @@ export default function ChatbotEditSection({ chatbot }) {
     <Container>
       <Title size="2">{chatbot.title}</Title>
       <Title size="4">{chatbot.description}</Title>
-      <QuestionsSection questions={chatbot.questions} chatbotId={chatbot.id} />
+      <QuestionsSection chatbotId={chatbot.id} />
     </Container>
   );
 }

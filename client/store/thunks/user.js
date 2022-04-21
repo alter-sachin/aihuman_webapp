@@ -1,7 +1,9 @@
 import { snakeToCamelCase } from 'json-style-converter/es5';
 import { store as RNC } from 'react-notifications-component';
 
-import { getUser, putUser, putQuestion, postQuestion, putUserPassword, postNewChatbot, getGenerateChatbot } from '_api/user';
+import {
+  getUser, putUser, putQuestion, postQuestion, putUserPassword, postNewChatbot, getGenerateChatbot,
+} from '_api/user';
 import { updateUser } from '_actions/user';
 
 import { dispatchError } from '_utils/api';

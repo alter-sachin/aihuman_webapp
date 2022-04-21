@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import R from 'ramda';
 import { attemptQuestionUpdate, attemptGenerateChabot, attemptQuestionCreate } from '_thunks/user';
 import Button from 'react-bulma-companion/lib/Button';
 
 import QuestionEditModal from '_templates/QuestionEditModal';
 
-export default function QuestionsSection({ questions, chatbotId }) {
-  const [questionsList, setQuestionsList] = useState(questions);
+export default function QuestionsSection({ chatbotId }) {
+  const { user } = useSelector(R.pick(['user']));
+  const [questionsList, setQuestionsList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [question, setQuestion] = useState();
 
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    setQuestionsList(user.chatbots.filter(
+      chatbot => chatbot.id === chatbotId)[0].questions);
+  }, [user]);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -128,6 +135,5 @@ export default function QuestionsSection({ questions, chatbotId }) {
 }
 
 QuestionsSection.propTypes = {
-  questions: PropTypes.array.isRequired,
   chatbotId: PropTypes.string.isRequired,
 };
