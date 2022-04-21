@@ -85,7 +85,6 @@ const textToSpeech = async(bot, text) => {
       rejectUnauthorized: false,
     }),
   });
-  console.log(response.data);
   return response.data;
 };
 
@@ -104,7 +103,6 @@ const speechToVideo = async(audioUrl) => {
       companyName: '0',
     }),
   });
-  console.log(response.data);
   return response.data;
 };
 
