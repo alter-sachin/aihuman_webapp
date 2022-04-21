@@ -160,7 +160,7 @@ router.get('/generate/:chatbotId', async(req, res) => {
 router.get('/use/:id/:chatbotId', cors(), async(req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) {
-    res.send(404);
+    res.sendStatus(404);
     return;
   }
   const chatbot = user.chatbots.filter(chatbot => chatbot.id === req.params.chatbotId)[0];
