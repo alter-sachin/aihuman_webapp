@@ -35,3 +35,9 @@ export const getGenerateChatbot = (chatbotId) =>
     .send()
     .then(handleSuccess)
     .catch(handleError);
+
+export const postNewChatbot = () =>
+  request.post('/api/chatbot')
+    .send()
+    .then(handleSuccess)
+    .catch(handleError);

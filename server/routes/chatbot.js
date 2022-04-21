@@ -19,6 +19,15 @@ router.get('/', async(req, res) => {
   res.send(user.chatbots);
 });
 
+// add a new chatbot
+router.post('/', async(req, res) => {
+  const user = await User.findById(req.user.id);
+
+  user.chatbots.push({ title: 'Sample title', description: 'Sample description' });
+  await user.save();
+  res.send({ message: 'Sample chatbot created. Edit to personalize.', user: user.hidePassword() });
+});
+
 // add a new question
 router.post('/:chatbotId', async(req, res) => {
   const { chatbotId } = req.params;
