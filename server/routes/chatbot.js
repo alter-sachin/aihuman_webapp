@@ -110,7 +110,7 @@ const textToSpeech = async(bot, text) => {
 
 const speechToVideo = async(audioUrl) => {
   const response = await axios({
-    url: 'http://buildar2.ngrok.io/video',
+    url: 'http://buildar1.ngrok.io/video',
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -144,9 +144,8 @@ router.get('/generate/:chatbotId', async(req, res) => {
     await asyncForEach(questions, async(question) => {
       const { audioUrl } = await textToSpeech('Amy', question.text);
       const { videoUrl } = await speechToVideo(audioUrl);
-      questions.videoLink = videoUrl;
+      question.videoLink = videoUrl;
     });
-
     user.chatbots[chatbotIndex].questions = questions;
     await user.save();
   };
