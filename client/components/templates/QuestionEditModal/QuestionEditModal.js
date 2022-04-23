@@ -9,13 +9,11 @@ import Input from 'react-bulma-companion/lib/Input';
 import Label from 'react-bulma-companion/lib/Label';
 import Control from 'react-bulma-companion/lib/Control';
 import Help from 'react-bulma-companion/lib/Help';
-import Checkbox from 'react-bulma-companion/lib/Checkbox';
 
 export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpdatedData }) {
   const [text, setText] = useState(question.text);
   const [name, setName] = useState(question.name);
   const [options, setOptions] = useState(question.options);
-  const [isMultipleChoice, setIsMultipleChoice] = useState(false);
   useEffect(() => {
     setText(question.text);
     setName(question.name);
@@ -50,11 +48,6 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
     setName(e.target.value);
   };
 
-  const handleCheckboxChange = () => {
-    setIsMultipleChoice(!isMultipleChoice);
-    if (!isMultipleChoice) setOptions([]);
-  };
-
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -75,6 +68,11 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
     saveUpdatedData(data);
   };
 
+  const generateVideo = () => {
+    // todo
+    console.log('generate');
+  };
+
   return (
     <Modal active={isOpen}>
       <Modal.Background />
@@ -86,10 +84,32 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
           <Delete onClick={closeModal} />
         </Modal.CardHead>
         <Modal.CardBody>
-          {question.videoLink && (
-            // eslint-disable-next-line jsx-a11y/media-has-caption
+
+          {/* Live feedback */}
+          <React.Fragment>
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <video src={question.videoLink} autoPlay />
-          )}
+            <p>
+              Question:
+              {' '}
+              {text}
+            </p>
+            <p>
+              Answer for &apos;
+              {name}
+              &apos;
+              :
+            </p>
+            {options.length > 0
+              ? (options.map(option => (
+                <React.Fragment key={option.id}>
+                  <input type="radio" name={name} value={option.text} />
+                  <label>{option.text}</label>
+                </React.Fragment>
+              )))
+              : <input type="text" placeholder="User input" disabled />}
+          </React.Fragment>
+
           <Field>
             <Label>Question text</Label>
             <Control>
@@ -106,14 +126,9 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
             <Help>This will identify which response belongs to which question.</Help>
           </Field>
 
-          <Checkbox>
-            <input type="checkbox" onChange={handleCheckboxChange} />
-            <span>Multiple choice question</span>
-          </Checkbox>
-
-          {isMultipleChoice && (
+          <Label>Options</Label>
+          {(options.length > 0) ? (
             <React.Fragment>
-              <Label>Options</Label>
               {options.map((option, idx) => (
                 <React.Fragment key={option.id}>
                   <Field>
@@ -127,11 +142,13 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
               <Button onClick={addNewOptionField}>Add option</Button>
               <Help>Options available to the user.</Help>
             </React.Fragment>
-          )}
+          )
+            : <Button onClick={addNewOptionField}>Add option</Button>}
 
         </Modal.CardBody>
         <Modal.CardFoot>
           <Button color="success" onClick={saveData}>Save Changes</Button>
+          <Button color="success" onClick={generateVideo}>Generate Video</Button>
           <Button onClick={resetData}>Cancel</Button>
         </Modal.CardFoot>
       </Modal.Card>

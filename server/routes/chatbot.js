@@ -35,7 +35,11 @@ router.post('/:chatbotId', async(req, res) => {
 
   const index = user.chatbots.findIndex(chatbot => chatbot.id === chatbotId);
 
-  user.chatbots[index].questions.push({ text: 'Sample question', name: 'sampleName' });
+  user.chatbots[index].questions.push({
+    text: 'What is your name?',
+    name: 'name',
+    videoLink: 'https://buildarassets.s3.amazonaws.com/1650618797.0980403.mp4',
+  });
   await user.save();
   res.send({ message: 'Sample question created. Edit to personalize.', user: user.hidePassword() });
 });
