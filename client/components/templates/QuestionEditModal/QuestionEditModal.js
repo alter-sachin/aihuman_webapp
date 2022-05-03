@@ -9,8 +9,10 @@ import Input from 'react-bulma-companion/lib/Input';
 import Label from 'react-bulma-companion/lib/Label';
 import Control from 'react-bulma-companion/lib/Control';
 import Help from 'react-bulma-companion/lib/Help';
+import {  attemptGenerateVideo } from '_thunks/user';
+import { useDispatch } from 'react-redux';
 
-export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpdatedData }) {
+export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpdatedData, chatbotId }) {
   const [text, setText] = useState(question.text);
   const [name, setName] = useState(question.name);
   const [options, setOptions] = useState(question.options);
@@ -68,9 +70,10 @@ export default function QuestionEditModal({ isOpen, question, setIsOpen, saveUpd
     saveUpdatedData(data);
   };
 
+  const dispatch = useDispatch();
+
   const generateVideo = () => {
-    // todo
-    console.log('generate');
+    dispatch(attemptGenerateVideo(chatbotId, question.id));
   };
 
   return (
@@ -161,6 +164,7 @@ QuestionEditModal.propTypes = {
   question: PropTypes.object,
   setIsOpen: PropTypes.func.isRequired,
   saveUpdatedData: PropTypes.func.isRequired,
+  chatbotId: PropTypes.string.isRequired,
 };
 
 QuestionEditModal.defaultProps = {

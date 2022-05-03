@@ -130,33 +130,26 @@ const speechToVideo = async(audioUrl) => {
   return response.data;
 };
 
-async function asyncForEach(array, callback) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array);
-  }
-}
-
-router.get('/generate/:chatbotId', async(req, res) => {
+router.get('/generate/:chatbotId/:questionId', async(req, res) => {
   const userId = req.user.id;
   const { chatbotId } = req.params;
+  const { questionId } = req.params;
 
   const user = await User.findById(userId);
   const chatbotIndex = user.chatbots.findIndex(chatbot => chatbot.id === chatbotId);
-  const { questions } = user.chatbots[chatbotIndex];
+  const questionIndex = user.chatbots[chatbotIndex].questions.findIndex(question => question.id === questionId);
 
-  const addVideoLinks = async() => {
-    await asyncForEach(questions, async(question) => {
-      const { audioUrl } = await textToSpeech('Amy', question.text);
-      const { videoUrl } = await speechToVideo(audioUrl);
-      question.videoLink = videoUrl;
-    });
-    user.chatbots[chatbotIndex].questions = questions;
-    await user.save();
-  };
+  const question = user.chatbots[chatbotIndex].questions[questionIndex];
+  console.log(question);
+  const { audioUrl } = await textToSpeech('Amy', question.text);
+  const { videoUrl } = await speechToVideo(audioUrl);
+  question.videoLink = videoUrl;
+  console.log(question);
+  user.chatbots[chatbotIndex].questions[questionIndex] = question;
+  await user.save();
+  console.log(user.chatbots[chatbotIndex].questions[questionIndex]);
 
-  await addVideoLinks();
-
-  res.send({ message: 'Videos created successfully.' });
+  res.send({ message: 'Video created successfully.', user: user.hidePassword() });
 });
 
 // get chatbot by id

@@ -2,7 +2,7 @@ import { snakeToCamelCase } from 'json-style-converter/es5';
 import { store as RNC } from 'react-notifications-component';
 
 import {
-  getUser, putUser, putQuestion, postQuestion, putUserPassword, postNewChatbot, getGenerateChatbot,
+  getUser, putUser, putQuestion, postQuestion, putUserPassword, postNewChatbot, getGenerateVideo,
 } from '_api/user';
 import { updateUser } from '_actions/user';
 
@@ -116,9 +116,10 @@ export const attemptChatbotCreate = () => dispatch =>
     })
     .catch(dispatchError(dispatch));
 
-export const attemptGenerateChabot = (chatbotId) => dispatch =>
-  getGenerateChatbot(chatbotId)
+export const attemptGenerateVideo = (chatbotId, questionId) => dispatch =>
+  getGenerateVideo(chatbotId, questionId)
     .then(data => {
+      dispatch(updateUser(snakeToCamelCase(data.user)));
       RNC.addNotification({
         title: 'Success!',
         message: data.message,

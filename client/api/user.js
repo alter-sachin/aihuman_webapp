@@ -30,8 +30,8 @@ export const postQuestion = (chatbotId) =>
     .then(handleSuccess)
     .catch(handleError);
 
-export const getGenerateChatbot = (chatbotId) =>
-  request.get(`/api/chatbot/generate/${chatbotId}`)
+export const getGenerateVideo = (chatbotId, questionId) =>
+  request.get(`/api/chatbot/generate/${chatbotId}/${questionId}`)
     .send()
     .then(handleSuccess)
     .catch(handleError);
